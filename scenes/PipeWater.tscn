@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://sounds/flowing_water.wav" type="AudioStream" id=1]
+
+[node name="PipeWater" type="AudioStreamPlayer2D"]
+position = Vector2( 424.5, 25 )
+stream = ExtResource( 1 )
+volume_db = -25.0
+autoplay = true
+max_distance = 50.0
+attenuation = 0.5

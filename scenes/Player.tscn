@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://sounds/footstep.wav" type="AudioStream" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://animations/player.walk.tres" type="Animation" id=3]
+[ext_resource path="res://animations/player.jump.tres" type="Animation" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 7 )
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/Tilesheet.png-bcf2b7907222dd458d826fd52a279a46.stex"
+
+[sub_resource type="Animation" id=3]
+resource_name = "player.die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 100 ) ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.3, 0.3 )
+smoothing_enabled = true
+smoothing_speed = 8.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 2 )
+vframes = 22
+hframes = 48
+frame = 222
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/player.die = SubResource( 3 )
+anims/player.jump = ExtResource( 4 )
+anims/player.walk = ExtResource( 3 )
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = -15.0
+attenuation = 1.10957
+
+[node name="Coyote" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="RememberJump" type="Timer" parent="."]
+wait_time = 0.2
+[connection signal="timeout" from="Coyote" to="." method="_on_Coyote_timeout"]
+[connection signal="timeout" from="RememberJump" to="." method="_on_RememberJump_timeout"]

@@ -201,7 +201,6 @@ font_data = ExtResource( 8 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Border" parent="CanvasLayer" instance=ExtResource( 1 )]
-visible = false
 
 [node name="Tilemap" type="TileMap" parent="."]
 tile_set = SubResource( 17 )
